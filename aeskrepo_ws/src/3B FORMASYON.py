@@ -8,8 +8,7 @@ import math
 import tf
 import rospy
 import numpy as np
-import abu as a
-import time
+#import abu as a    #A STAR KODUNU ENTEGRE ETMEK İÇİN İMPORT EDİLİR
 
 class Drone:   
 
@@ -42,8 +41,6 @@ class Drone:
 
         rospy.Subscriber("/firefly1/odometry_sensor1/odometry" , Odometry, self.callback) 
         
-        
-
     def callback(self, msg):
 
         self.pos_x = msg.pose.pose.position.x  
@@ -132,7 +129,7 @@ class Drone:
             self.velocity_control(b[0], b[1], b[2])
             self.rate.sleep()
             
-    def abu(self):
+    '''def abu(self):          # A STAR ENTEGRASYONU İÇİN EKLENEN A STAR KODUNDAKİ MAİN!
         print(__file__ + " start!!")
 
         # start and goal position
@@ -176,9 +173,9 @@ class Drone:
             bik.append([kx, ky])
         self.path = bik
         
-        return kx, ky 
-   
-    def find_path(self):
+        return kx, ky'''
+
+    '''def find_path(self):           #A STARDAKİ YOLU BULMAK İÇİN YAPILAN FONK
         for i in self.path :
             is_arrived = False
             while is_arrived == False: 
@@ -192,7 +189,7 @@ class Drone:
                 else:
                     output = (error/np.linalg.norm(error))*3
                     output = output.tolist()
-                    self.velocity_control(output[0], output[1], 3)
+                    self.velocity_control(output[0], output[1], 3)'''
             
         
 
