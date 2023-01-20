@@ -9,7 +9,7 @@ import tf
 import rospy
 import numpy as np
 import abu as a
-import s2mle100leş
+import s2mle100leşammmmmmmmmcık
 
 class Drone:   
 
