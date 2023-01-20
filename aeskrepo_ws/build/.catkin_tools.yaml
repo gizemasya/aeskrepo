@@ -1,0 +1,6 @@
+devel_space: /home/elifycel/aeskrepo/aeskrepo_ws/devel
+install: false
+install_space: /home/elifycel/aeskrepo/aeskrepo_ws/install
+profile: default
+source_space: /home/elifycel/aeskrepo/aeskrepo_ws/src
+workspace: /home/elifycel/aeskrepo/aeskrepo_ws
