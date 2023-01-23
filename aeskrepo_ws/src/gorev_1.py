@@ -16,8 +16,14 @@ class Drone:
 
     def __init__(self):
 
-        self.sürü_merkezi = []
-        self.formasyon_list = []
+        self.formations_x = []
+        self.formations_y = []
+        self.formations_z = []
+        self.new_formations_x = []
+        self.new_formations_y = []
+        self.new_formations_z = []
+
+
 
         self.pos_x = float()
         self.pos_y = float()   
@@ -84,19 +90,33 @@ class Drone:
 
         self.position_control(self.cmd_x, self.cmd_y, self.cmd_z, 0)
 
-    def sürü_merkezi_kontrolü(self, merkez_x, merkez_y, merkez_z):
+    def swarm_center_control(self, cx, cy, cz):
+        # sürü merkez noktasının koordinatları, ilk başta hepsi 0.
+        self.swarm_center_x = cx
+        self.swarm_center_y = cy
+        self.swarm_center_z = cz
 
-        while merkez_x < 3:
+        # formasyon noktalarının koordinatları, istenilen değerlere eşitlenecekler.
+        x_1, x_2, x_3, y_1, y_2, y_3, z_1, z_2, z_3 = float()
 
-            self.sürü_merkezi = [merkez_x, merkez_y, merkez_z]
-            self.velocity_control(merkez_x, merkez_y, merkez_z)
+        # sürü merkezi ve tüm formasyonların olduğu liste
+        self.formations_x.append(cx, x_1, x_2, x_3)
+        self.formations_y.append(cy, y_1, y_2, y_3)
+        self.formations_z.append(cz, z_1, z_2, z_3)
 
-            #self.formasyon_list = [self.sürü_merkezi, for_1, for_2, for_3]
+        # istenilen final noktasına kadar merkez ve formasyonların konumu 0.5'er 0.5'er artar.
+        while cx < final_pos_x:
+            self.new_formations_x = [x + 0.5 for x in self.formations_x]
 
-            merkez_x = merkez_x + 0.5
-            merkez_y = merkez_y + 0.5
-            merkez_z = merkez_z + 0.5
-            
+        while cy < final_pos_y:
+            self.new_formations_y = [y + 0.5 for y in self.formations_y]
+
+        while cz < final_pos_z:
+            self.new_formations_z = [z + 0.5 for z in self.formations_z]
+
+        # self.velocity_control() vs yazcaz
+
+   
     def take_off(self, alt):
         while self.pos_z < alt:
             print(self.pos_x, self.pos_z)
@@ -118,8 +138,12 @@ drone_3 = Drone()'''
 
 if __name__ == '__main__':
     while True:
+        final_pos_x = 0
+        final_pos_y = 0
+        final_pos_z = 5
+
         crazyflie.take_off(3)
-        crazyflie.sürü_merkezi_kontrolü(0, 0, 0) #mutlak sıfır noktası
+        crazyflie.swarm_center_control(0, 0, 0) #mutlak sıfır noktası
         #crazyflie.velocity_control(3, 0, 3)
         #crazyflie.take_off(3)
         #crazyflie.landing()
